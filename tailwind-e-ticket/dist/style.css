@@ -1,0 +1,105 @@
+body::before{
+    /* create a movie effect with the background image by moving it around "randomly" */
+    animation: movie 120s linear infinite;
+}
+
+@keyframes movie {
+    0%,100%{
+        scale: 2;
+        transform: translateX(0);
+    }
+    30%{
+       transform: translate(100px,100px);
+    }
+     60%{
+       transform: translate(40px,150px);
+    }
+    80%{
+        transform: translateX(-100px,-50px);
+    }
+}
+
+.animate-in {
+    --speed: 500ms;
+    opacity: 0;
+    transform-origin: center;
+    animation: bounceIn var(--speed,300ms) forwards;
+    animation-delay: var(--d, 0ms);
+}
+@keyframes bounceIn {
+   0% { opacity: 0;}
+   100% {  opacity: 1;}
+}
+
+#plane-1{
+    translate: -180px 0;
+    opacity: 0;
+    animation: fly-in 1000ms  ease-out forwards;
+    animation-delay: var(--d, 0ms);
+
+}
+@keyframes fly-in {
+    0%{ translate: -180px 0; opacity:1;}
+    100%{ translate: 0; opacity:1;}
+}
+
+main{
+    --r: 10px;
+    --bg: #ECFEFF;
+}
+
+/* cutouts between boarding pass and stub */
+main>div:first-child {
+    background:
+        radial-gradient(circle var(--r) at bottom left, #0000 98%, var(--bg)) bottom left,
+        radial-gradient(circle var(--r) at bottom right, #0000 98%, var(--bg)) bottom right;
+    background-size: 51% 100%;
+    background-repeat: no-repeat;
+    
+}
+
+main>div:last-child {
+    background:
+        radial-gradient(circle var(--r) at top left, #0000 98%, var(--bg)) top left,
+        radial-gradient(circle var(--r) at top right, #0000 98%, var(--bg)) top right;
+    background-size: 51% 100%;
+    background-repeat: no-repeat;
+}
+
+main>div:first-child::before {
+    content: '';
+    position: absolute;
+    border: 2px dashed #DDD;
+    bottom: -1px;
+    left: calc( var(--r) * 3) ;
+    width: calc(100% - var(--r) * 6);
+    height: 0;
+}
+
+/* 640px is the Tailwind breakpoint for "sm" */
+@media (min-width: 640px) {
+    main>div:first-child {
+        background:
+            radial-gradient(circle var(--r) at top right, #0000 98%, var(--bg)) top right,
+            radial-gradient(circle var(--r) at bottom right, #0000 98%, var(--bg)) bottom right;
+        background-size: 100% 51%;
+        background-repeat: no-repeat;
+    }
+
+    main>div:last-child {
+        background:
+            radial-gradient(circle var(--r) at top left, #0000 98%, var(--bg)) top left,
+            radial-gradient(circle var(--r) at bottom left, #0000 98%, var(--bg)) bottom left;
+        background-size: 100% 51%;
+        background-repeat: no-repeat;
+    }
+
+    main>div:first-child::before{
+        top: calc(var(--r) * 3);
+        right: -1px;
+        bottom: auto;
+        left: auto;
+        height: calc(100% - var(--r) * 6);
+        width:0;
+    }
+}
